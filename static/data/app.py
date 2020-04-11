@@ -8,7 +8,7 @@ conn = "mongodb://localhost:27017"
 client = pymongo.MongoClient(conn)
 
 # Assign our database as "db" containing collections
-db = water_qualityMN
+db = client.water_qualityMN
 # Assign a specific collection as "collection" containing the documents we want (we have two: unfiltered and Adam's groupby counties)
 collection = db.Adams_MN_watercounties
 
