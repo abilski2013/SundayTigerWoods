@@ -4,51 +4,18 @@ var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/light-v9/til
   id: "mapbox.light",
   accessToken: API_KEY
 });
-var layers = {
-    Arsenic: new L.LayerGroup(),
-    HAA5: new L.LayerGroup(),
-    Nitrate: new L.LayerGroup(),
-    PCE: new L.LayerGroup(),
-    Radium: new L.LayerGroup(),
-    TCE: new L.LayerGroup(),
-    TTHM: new L.LayerGroup()
-  };
 
-var map = L.map("map", {
-    center: [46.392410, -94.636230],
-    zoom: 7,
-    layers: [
-        layers.Arsenic,
-        layers.HAA5,
-        layers.Nitrate,
-        layers.PCE,
-        layers.Radium, 
-        layers.TCE, 
-        layers.TTHM
-      ]
-});
-lightmap.addTo(map);
 
-var overlays = {
-    "Arsenic": layers.Arsenic,
-    "HAA5": layers.HAA5,
-    "Nitrate": layers.Nitrate,
-    "PCE": layers.PCE,
-    "Radium": layers.Radium, 
-    "TCE": layers.TCE, 
-    "TTHM": layers.TTHM
-  };
-
-L.control.layers(null, overlays).addTo(map);
 var geoData = "../static/data/mn_water_data-coord.geojson";
 
 d3.json(geoData).then(function(data) {
     console.log(data);
-    var analytes = data.features.properties; 
-    console.log(analytes);
+
+
+
     Arsenic = L.choropleth(data, {
         valueProperty: "mean_value", 
-        scale: ["#ffffb2", "#b10026"],
+        scale: ["#E0F7FA", "#0D47A1"],
         steps: 10,
 
         mode: "q",
@@ -62,11 +29,176 @@ d3.json(geoData).then(function(data) {
         else return false;
       },
     onEachFeature: function(feature, layer) {
-        layer.bindPopup("County:  " + feature.properties.name + "<br>Contaminent level: <br>" +
+        layer.bindPopup("Contaminant: "+ feature.properties.analyteCode+ " <br>County:  " + feature.properties.name + "<br>Contaminent level: <br>" +
           + feature.properties.mean_value+ " ug/l");
       }
     
-    }).addTo(map);
+    });
+    HAA5 = L.choropleth(data, {
+      valueProperty: "mean_value", 
+      scale: ["#E0F7FA", "#0D47A1"],
+      steps: 10,
+
+      mode: "q",
+      style: {
+          color: "#fff",
+          weight: 1,
+          fillOpacity: 0.8
+  },
+  filter: function(feature, layer) {
+      if (feature.properties.analyteCode === "HAA5") return true;
+      else return false;
+    },
+  onEachFeature: function(feature, layer) {
+      layer.bindPopup("Contaminant: "+ feature.properties.analyteCode+ "<br>County:  " + feature.properties.name + "<br>Contaminent level: <br>" +
+        + feature.properties.mean_value+ " ug/l");
+    }
   
+  });
+
+  Nitrate = L.choropleth(data, {
+    valueProperty: "mean_value", 
+    scale: ["#E0F7FA", "#0D47A1"],
+    steps: 10,
+
+    mode: "q",
+    style: {
+        color: "#fff",
+        weight: 1,
+        fillOpacity: 0.8
+},
+filter: function(feature, layer) {
+    if (feature.properties.analyteCode === "Nitrate") return true;
+    else return false;
+  },
+onEachFeature: function(feature, layer) {
+    layer.bindPopup("Contaminant: "+ feature.properties.analyteCode+ "<br>County:  " + feature.properties.name + "<br>Contaminent level: <br>" +
+      + feature.properties.mean_value+ " mg/l");
+  }
+});
+PCE = L.choropleth(data, {
+    valueProperty: "mean_value", 
+    scale: ["#E0F7FA", "#0D47A1"],
+    steps: 10,
+
+    mode: "q",
+    style: {
+        color: "#fff",
+        weight: 1,
+        fillOpacity: 0.8
+},
+filter: function(feature, layer) {
+    if (feature.properties.analyteCode === "PCE") return true;
+    else return false;
+  },
+onEachFeature: function(feature, layer) {
+    layer.bindPopup("Contaminant: "+ feature.properties.analyteCode+ "<br>County:  " + feature.properties.name + "<br>Contaminent level: <br>" +
+      + feature.properties.mean_value+ " ug/l");
+  }
+});
+Radium = L.choropleth(data, {
+  valueProperty: "mean_value", 
+  scale: ["#E0F7FA", "#0D47A1"],
+  steps: 10,
+
+  mode: "q",
+  style: {
+      color: "#fff",
+      weight: 1,
+      fillOpacity: 0.8
+},
+filter: function(feature, layer) {
+  if (feature.properties.analyteCode === "Radium") return true;
+  else return false;
+},
+onEachFeature: function(feature, layer) {
+  layer.bindPopup("Contaminant: "+ feature.properties.analyteCode+ "<br>County:  " + feature.properties.name + "<br>Contaminent level: <br>" +
+    + feature.properties.mean_value+ " pCi/l");
+}
+});
+TCE = L.choropleth(data, {
+  valueProperty: "mean_value", 
+  scale: ["#E0F7FA", "#0D47A1"],
+  steps: 10,
+
+  mode: "q",
+  style: {
+      color: "#fff",
+      weight: 1,
+      fillOpacity: 0.8
+},
+filter: function(feature, layer) {
+  if (feature.properties.analyteCode === "TCE") return true;
+  else return false;
+},
+onEachFeature: function(feature, layer) {
+  layer.bindPopup("Contaminant: "+ feature.properties.analyteCode+ "<br>County:  " + feature.properties.name + "<br>Contaminent level: <br>" +
+    + feature.properties.mean_value+ " ug/l");
+}
+});
+TTHM = L.choropleth(data, {
+  valueProperty: "mean_value", 
+  scale: ["#E0F7FA", "#0D47A1"],
+  steps: 10,
+
+  mode: "q",
+  style: {
+      color: "#fff",
+      weight: 1,
+      fillOpacity: 0.8
+},
+filter: function(feature, layer) {
+  if (feature.properties.analyteCode === "TTHM") return true;
+  else return false;
+},
+onEachFeature: function(feature, layer) {
+  layer.bindPopup("Contaminant: "+ feature.properties.analyteCode+ "<br>County:  " + feature.properties.name + "<br>Contaminent level: <br>" +
+    + feature.properties.mean_value+ " ug/l");
+}
+});
+
+Uranium = L.choropleth(data, {
+  valueProperty: "mean_value", 
+  scale: ["#E0F7FA", "#0D47A1"],
+  steps: 10,
+
+  mode: "q",
+  style: {
+      color: "#fff",
+      weight: 1,
+      fillOpacity: 0.8
+},
+filter: function(feature, layer) {
+  if (feature.properties.analyteCode === "Uranium") return true;
+  else return false;
+},
+onEachFeature: function(feature, layer) {
+  layer.bindPopup("Contaminant: "+ feature.properties.analyteCode+ "<br>County:  " + feature.properties.name + "<br>Contaminent level: <br>" +
+    + feature.properties.mean_value+ " ug/l");
+}
+});
+  var overlays= {
+    Arsenic: Arsenic,
+    HAA5: HAA5,
+    Nitrate: Nitrate,
+    PCE: PCE,
+    Radium: Radium,
+    TCE: TCE,
+    TTHM: TTHM,
+    Uranium: Uranium
+  };
+
+  
+  var map = L.map("map", {
+    center: [46.392410, -94.636230],
+    zoom: 6,
+    layers: [
+        lightmap,
+        Arsenic
+        
+      ]
+});
+
+  L.control.layers(overlays,null).addTo(map);
 });
 

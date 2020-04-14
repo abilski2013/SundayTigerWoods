@@ -10,9 +10,9 @@ conn = "mongodb://localhost:27017"
 client = pymongo.MongoClient(conn)
 
 # Assign our database as "db" containing collections
-db = client.water_qualityMN
+db = client.chloropleth_db
 # Assign a specific collection as "collection" containing the documents we want (we have two: unfiltered and Adam's groupby counties)
-collection = db.Adams_MN_watercounties
+collection = db.water
 
 dictionary = {"Hello": [1,2,3,4], "World": [5,6,7,8]}
 page_sanitized = json.loads(json_util.dumps(collection.find()))
