@@ -5,30 +5,98 @@
     <title>Sunday Tiger</title>
 
     <!-- Leaflet CSS & JS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
     integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
     crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
     integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
     crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 
     <!-- d3 JavaScript -->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-
+    <script src="https://d3js.org/d3.v5.min.js"></script>"></script>
     <!-- Leaflet-Choropleth JavaScript -->
-    <script type="text/javascript" src="static/js/choropleth.js"></script>
+    <script type="text/javascript" src="../static/js/choropleth.js"></script>
 
+      
+      
     <!-- Our CSS -->
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/stylish.css">
 
   </head>
-  <body>
-
-    <!-- The div where we will inject our map -->
-    <div id="map"></div>
-
-    <script type="text/javascript" src="static/js/config.js"></script>
-    <script type="text/javascript" src="static/js/logic.js"></script>
-
+  <body>          
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Sunday Tiger Woods</h1>
+    <p class="lead">This is a visual analysis of water quality data in the state of Minnesota</p>
+  </div>
+</div>      
+<div class="container">
+<div class="row">
+    <div class="col-md-6">
+    
+    <div class="entire-line-chart">    
+    <h4>Water Contaminent Levels over time</h4>
+    <select id="countySelect2">
+        <option><strong>Hennepin</strong></option>
+    </select>
+    <select id="analyteCodeSelect2">
+    </select> 
+    <select id="waterSource2">
+    </select> 
+    <div id="chart-container">
+    <canvas id="myChart2"></canvas>
+    </div> 
+    <div><p id="units"></p></div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    
+    <h4>Water Contaminents by County : 2017</h4>
+    </div>
+</div>
+</div>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-md-6">
+    <h4>Heatmap</h4>
+  </div>
+    <div class = "col-md-6">
+      <h4>Bar Chart</h4>
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="stockInput">County</label>
+          <input type="text" class="form-control" id="countyInput" placeholder="Enter a Minnesota County">
+          <div id="plot"></div>
+          <button id="submit" type="submit" class="btn btn-default">Plot Data</button>
+        </div>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="../../static/js/logicBU.js"></script>
+        </div>
+        
+      </form>
+       
+    
+  </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+      
+    <script type="text/javascript" src="../static/js/config.js"></script>
+    <script type="text/javascript" src="../static/js/logic.js"></script>
+    <script type="text/javascript" src="../static/js/line.js"></script>
+    <script type="text/javascript" src="../static/js/sun.js"></script>
+      
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
+ 
+      
+ 
   </body>
 </html>
+
+
+
