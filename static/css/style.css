@@ -5,3 +5,7 @@
     color: white;
     text-align: center;
 }
+
+#heat_map {
+  height: 100%;
+}

@@ -13,9 +13,11 @@ client = pymongo.MongoClient(conn)
 db = client.water_qualityMN
 # Assign a specific collection as "collection" containing the documents we want (we have two: unfiltered and Adam's groupby counties)
 collection = db.Adams_MN_watercounties
+collection2 = db.per_capita_income
 
 dictionary = {"Hello": [1,2,3,4], "World": [5,6,7,8]}
 page_sanitized = json.loads(json_util.dumps(collection.find()))
+income_sanitized = json.loads(json_util.dumps(collection2.find()))
 
 @app.route("/")
 # Create a function called query_mongo that will pull all documents from our collection at once
@@ -50,6 +52,10 @@ def jsonified():
 @app.route("/random")
 def random():
     return {"Hello": 2, "Okay": 1}
+
+@app.route("/income")
+def income():
+    return jsonify(income_sanitized)
 
 if __name__ == "__main__":
     app.run(debug=True)
