@@ -56,7 +56,7 @@ d3.json(geoData).then(function(data) {
   
   });
 
-  Nitrate = L.choropleth(data, {
+    Nitrate = L.choropleth(data, {
     valueProperty: "mean_value", 
     scale: ["#E0F7FA", "#0D47A1"],
     steps: 10,
@@ -76,7 +76,7 @@ onEachFeature: function(feature, layer) {
       + feature.properties.mean_value+ " mg/l");
   }
 });
-PCE = L.choropleth(data, {
+  PCE = L.choropleth(data, {
     valueProperty: "mean_value", 
     scale: ["#E0F7FA", "#0D47A1"],
     steps: 10,
@@ -96,7 +96,7 @@ onEachFeature: function(feature, layer) {
       + feature.properties.mean_value+ " ug/l");
   }
 });
-Radium = L.choropleth(data, {
+  Radium = L.choropleth(data, {
   valueProperty: "mean_value", 
   scale: ["#E0F7FA", "#0D47A1"],
   steps: 10,
@@ -116,7 +116,7 @@ onEachFeature: function(feature, layer) {
     + feature.properties.mean_value+ " pCi/l");
 }
 });
-TCE = L.choropleth(data, {
+  TCE = L.choropleth(data, {
   valueProperty: "mean_value", 
   scale: ["#E0F7FA", "#0D47A1"],
   steps: 10,
@@ -136,7 +136,7 @@ onEachFeature: function(feature, layer) {
     + feature.properties.mean_value+ " ug/l");
 }
 });
-TTHM = L.choropleth(data, {
+  TTHM = L.choropleth(data, {
   valueProperty: "mean_value", 
   scale: ["#E0F7FA", "#0D47A1"],
   steps: 10,
@@ -199,6 +199,6 @@ onEachFeature: function(feature, layer) {
       ]
 });
 
-  L.control.layers(overlays,null).addTo(map);
+  L.control.layers(overlays,null).addTo(map);   
 });
 

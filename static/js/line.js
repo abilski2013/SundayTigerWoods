@@ -105,6 +105,7 @@ d3.json("/jsonified").then(function(page_sanitized) {
          ]    
         }
     });   
+    
     if ((initial_contam == "Arsenic") || (initial_contam == "HAA5") || (initial_contam == "PCE") || (initial_contam == "TCE") || (initial_contam == "TTHM") || (initial_contam == "Uranium")) {
         d3.select("#units").text("Units are in ug/L");
     } else if ((initial_contam == "Nitrate")) {
