@@ -1,36 +1,21 @@
-function handleSubmit() {
-    // Prevent the page from refreshing
-    d3.event.preventDefault();
-  
-    // Select the input value from the form
-    var county = d3.select("#countyInput").node().value;
-    console.log(county);
-  
-    // clear the input value
-    d3.select("#countyInput").node().value = "";
-  
-    buildPlot(county);
-  }
 
-
-function buildPlot() {
 var svgWidth = 500;
 var svgHeight = 400;
 
-
+// Define the chart's margins as an object
 var chartMargin = {
   top: 30,
   right: 30,
   bottom: 30,
-  left: 150
+  left: 40
 };
 
-
+// Define dimensions of the chart area
 var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
 var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
 
 // Select body, append SVG area to it, and set the dimensions
-var svg = d3.select("body")
+var svg = d3.select("#viz-container")
   .append("svg")
   .attr("height", svgHeight)
   .attr("width", svgWidth);
@@ -39,8 +24,9 @@ var svg = d3.select("body")
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
 
-d3.csv("../../static/data/groundwater_contaminants.csv").then(function(data) {
-
+// Load data from hours-of-tv-watched.csv
+d3.json("/jsonified_two").then(function(data) {
+    
   var counties = [];
   for (i = 0; i < data.length; i++) {
       var county = data[i]["countyServed"];
@@ -60,57 +46,31 @@ d3.csv("../../static/data/groundwater_contaminants.csv").then(function(data) {
   };
   console.log(years);
 
-  var dropdownChange = function() {
-    var changeYear = d3.select(this).property('value'),
-        newData   = years[changeYear];
+  function handleSubmit() {
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+  
+    // Select the input value from the form
+    var county = d3.select("#countyInput").node().value;
+    console.log(county);
+  
+    // clear the input value
+    d3.select("#countyInput").node().value = "";
+  
+    buildPlot(county);
+  }
 
 
-    updateBars(newData);
-};
-
-// Get years, for dropdown
-var year_list = Object.keys(years).sort();
-
-var dropdown = d3.select("#year-container")
-    .insert("select", "svg")
-    .on("change", dropdownChange);
-
-dropdown.selectAll("option")
-    .data(year_list)
-  .enter().append("option")
-    .attr("value", function (d) { return d; });
-
-
-
-
-
-
-
-  // Cast the percent value to a number for each piece of data
+  // Cast the hours value to a number for each piece of tvData
   data.forEach(function(d) {
     d.Percentage_Change = +d.Percentage_Change;
   });
 
-  var dropdownMenu = d3.select("#yearSelected");
-
-  var selected_year = dropdownMenu.property("value");
-
-  var county_input = d3.select("#countyInput").property("value");
-  var selected_year = d3.select("#yearSelected").property("value");
-  var percent_change = [];
-  for (i = 0; i < data.length; i++) {
-    if (county_input === data[i]["countyServed"]) {
-      if (selected_year === data[i]["year"]) {
-        percent_change.push(data[i]["Percentage_Change"]);    
-      };
-    };
-  };
-
-  // Configure a band scale for the horizontal axis with a padding of 0.5 (50%)
+  // Configure a band scale for the horizontal axis with a padding of 0.1 (10%)
   var xBandScale = d3.scaleBand()
     .domain(data.map(d => d.analyteCode))
     .range([0, chartWidth])
-    .padding(0.5);
+    .padding(0.1);
 
   // Create a linear scale for the vertical axis.
   var yLinearScale = d3.scaleLinear()
@@ -131,6 +91,7 @@ dropdown.selectAll("option")
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(bottomAxis);
 
+  // Create one SVG rectangle per piece of tvData
   // Use the linear and band scales to position each rectangle within the chart
   chartGroup.selectAll(".bar")
     .data(data)
@@ -138,13 +99,8 @@ dropdown.selectAll("option")
     .append("rect")
     .attr("class", "bar")
     .attr("x", d => xBandScale(d.analyteCode))
-    .attr("y", d => yLinearScale(Math.max(0, percent_change)))
+    .attr("y", d => yLinearScale(d.Percentage_Change))
     .attr("width", xBandScale.bandwidth())
-    .attr("height", d => chartHeight - yLinearScale(d.Percent_Change));
-
-}).catch(function(error) {
-  console.log(error);
+    .attr("height", d => chartHeight - yLinearScale(d.Percentage_Change));
 
 });
-
-};    
