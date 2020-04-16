@@ -10,7 +10,7 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
   accessToken: API_KEY
 }).addTo(myMap);
 
-d3.csv("/income").then(function(income_sanitized) {
+d3.json("/income").then(function(income_sanitized) {
 
     var numb = Math.round(income_sanitized[0]['2017_per_capita_personal_income']/1000)
   console.log(numb);
