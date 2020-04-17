@@ -23,6 +23,10 @@ income_sanitized = json.loads(json_util.dumps(collection2.find()))
 # Create a function called query_mongo that will pull all documents from our collection at once
 def query_mongo():
     return render_template("index.html")
+@app.route("/table.html")
+# Create a function called query_mongo that will pull all documents from our collection at once
+def table():
+    return render_template("table.html")
     # Assign the operation that finds all data as a (json?) list as the variable "grab_data"
     #grab_data = list(collection.find())
     #print(grab_data)
