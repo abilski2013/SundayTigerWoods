@@ -71,11 +71,11 @@ d3.json("/jsonified_two").then(function(data) {
       };
     };
   };
-
+  console.log(percent_change);
   //cast percent change as a number
-  data.forEach(function(d) {
-    percent_change = +percent_change;
-  });
+  // data.forEach(function(d) {
+  //   percent_change = +percent_change;
+  // });
 
   //draw the graph
   var xBandScale = d3.scaleBand()
@@ -134,5 +134,5 @@ d3.json("/jsonified_two").then(function(data) {
     .attr("height", chartHeight - yLinearScale(percent_change));
 
     };
-
+updateBars(data);
 });
