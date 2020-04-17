@@ -1,8 +1,7 @@
-
+//Create the chart area, dimensions
 var svgWidth = 500;
 var svgHeight = 400;
 
-// Define the chart's margins as an object
 var chartMargin = {
   top: 30,
   right: 30,
@@ -10,21 +9,18 @@ var chartMargin = {
   left: 40
 };
 
-// Define dimensions of the chart area
 var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
 var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
 
-// Select body, append SVG area to it, and set the dimensions
 var svg = d3.select("#viz-container")
   .append("svg")
   .attr("height", svgHeight)
   .attr("width", svgWidth);
 
-// Append a group to the SVG area and shift ('translate') it to the right and to the bottom
 var chartGroup = svg.append("g")
-  .attr("transform", `translate(${chartMargin.left}, ${chartMargin.top})`);
+  .attr("transform", `translate(${chartMargin.right}, ${chartMargin.bottom})`);
 
-// Load data from hours-of-tv-watched.csv
+//Read in the data from the MongoDB server and populate lists with options
 d3.json("/jsonified_two").then(function(data) {
     
   var counties = [];
@@ -35,6 +31,15 @@ d3.json("/jsonified_two").then(function(data) {
       };
   };
   console.log(counties);
+
+  var select = document.getElementById("countySelected");
+  for (var i = 0; i< counties.length; i++) {
+      var opt = counties[i];
+      var el = document.createElement("option");
+      el.textContent = opt;
+      el.value = opt;
+      select.appendChild(el);
+  };
   //console.log(data);
 
   var years = [];
@@ -46,44 +51,45 @@ d3.json("/jsonified_two").then(function(data) {
   };
   console.log(years);
 
-  function handleSubmit() {
-    // Prevent the page from refreshing
-    d3.event.preventDefault();
-  
-    // Select the input value from the form
-    var county = d3.select("#countyInput").node().value;
-    console.log(county);
-  
-    // clear the input value
-    d3.select("#countyInput").node().value = "";
-  
-    buildPlot(county);
-  }
+  var select = document.getElementById("yearSelected");
+  for (var i = 0; i< years.length; i++) {
+      var opt = years[i];
+      var el = document.createElement("option");
+      el.textContent = opt;
+      el.value = opt;
+      select.appendChild(el);
+  };
 
+  //create criteria for populating list with desired data to plot  
+  var county_input = d3.select("#countySelected").property("value");
+  var selected_year = d3.select("#yearSelected").property("value");
+  var percent_change = [];
+  for (i = 0; i < data.length; i++) {
+    if (county_input === data[i]["countyServed"]) {
+      if (selected_year === data[i]["year"]) {
+        percent_change.push(data[i]["Percentage_Change"]);    
+      };
+    };
+  };
 
-  // Cast the hours value to a number for each piece of tvData
+  //cast percent change as a number
   data.forEach(function(d) {
-    d.Percentage_Change = +d.Percentage_Change;
+    percent_change = +percent_change;
   });
 
-  // Configure a band scale for the horizontal axis with a padding of 0.1 (10%)
+  //draw the graph
   var xBandScale = d3.scaleBand()
     .domain(data.map(d => d.analyteCode))
     .range([0, chartWidth])
     .padding(0.1);
 
-  // Create a linear scale for the vertical axis.
   var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(data, d => d.Percentage_Change)])
+    .domain([0, d3.max(percent_change)])
     .range([chartHeight, 0]);
 
-  // Create two new functions passing our scales in as arguments
-  // These will be used to create the chart's axes
   var bottomAxis = d3.axisBottom(xBandScale);
-  var leftAxis = d3.axisLeft(yLinearScale).ticks(10);
+  var leftAxis = d3.axisLeft(yLinearScale).ticks(8);
 
-  // Append two SVG group elements to the chartGroup area,
-  // and create the bottom and left axes inside of them
   chartGroup.append("g")
     .call(leftAxis);
 
@@ -91,16 +97,42 @@ d3.json("/jsonified_two").then(function(data) {
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(bottomAxis);
 
-  // Create one SVG rectangle per piece of tvData
-  // Use the linear and band scales to position each rectangle within the chart
   chartGroup.selectAll(".bar")
     .data(data)
     .enter()
     .append("rect")
     .attr("class", "bar")
     .attr("x", d => xBandScale(d.analyteCode))
-    .attr("y", d => yLinearScale(d.Percentage_Change))
+    .attr("y", d => yLinearScale(percent_change))
     .attr("width", xBandScale.bandwidth())
-    .attr("height", d => chartHeight - yLinearScale(d.Percentage_Change));
+    .attr("height", chartHeight - yLinearScale(percent_change));
+
+    //create an update function that creates a new bar chart when you use the dropdown
+    d3.select("#countySelected").on("change", updateBars);
+    d3.select("#yearSelected").on("change", updateBars);
+
+    function updateBars() {
+      var county_input = d3.select("#countySelected").property("value");
+      var selected_year = d3.select("#yearSelected").property("value");
+      var percent_change = [];
+      for (i = 0; i < data.length; i++) {
+        if (county_input === data[i]["countyServed"]) {
+          if (selected_year === data[i]["year"]) {
+            percent_change.push(data[i]["Percentage_Change"]);    
+          };
+        };
+      };
+    
+    chartGroup.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", d => xBandScale(d.analyteCode))
+    .attr("y", d => yLinearScale(percent_change))
+    .attr("width", xBandScale.bandwidth())
+    .attr("height", chartHeight - yLinearScale(percent_change));
+
+    };
 
 });

@@ -49,6 +49,15 @@ d3.csv("../../static/data/groundwater_contaminants.csv").then(function(data) {
       };
   };
   console.log(counties);
+
+  var select = document.getElementById("countySelected");
+    for (var i = 0; i< counties.length; i++) {
+        var opt = counties[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+    }
   //console.log(data);
 
   var years = [];
