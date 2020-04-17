@@ -10,7 +10,7 @@ var map = L.map("map", {
     accessToken: API_KEY
   }).addTo(map);
  
-   var link = "../static/data/MN-county-boundaries.geojson";
+   var link = "../static/data/geopop.geojson";
   
   d3.json(link, function(data) {
     L.geoJson(data, {
@@ -20,7 +20,7 @@ var map = L.map("map", {
               mouseover: function(event) {
                 layer = event.target;
                 layer.setStyle({
-                  fillOpacity: .9
+                  fillOpacity: 0.9
                 });
               },
               mouseout: function(event) {
@@ -31,7 +31,7 @@ var map = L.map("map", {
               },
             });
         
-            layer.bindPopup("<h1>" + feature.properties.namelsad + "</h1>");
+            layer.bindPopup("<h1>" + feature.properties.County + " County" + "</h1>" + "<hr>" + "<h2>" + feature.properties.Population + " Served" + "</h2>");
       
           }
     }
