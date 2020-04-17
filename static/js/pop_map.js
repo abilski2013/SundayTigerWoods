@@ -13,6 +13,7 @@ var map = L.map("pop_map", {
    var link = "../static/data/geopop.geojson";
   
   d3.json(link, function(data) {
+      console.log(data);
     L.geoJson(data, {
         onEachFeature: function(feature, layer) {
  

@@ -14,7 +14,7 @@ db = client.water_data
 # Assign a specific collection as "collection" containing the documents we want (we have two: unfiltered and Adam's groupby counties)
 collection = db.line_graph
 collection2 = db.per_capita_income
-collectionBU = db.Mn_Water_Percentages
+collectionBU = db.water_percent
 
 dictionary = {"Hello": [1,2,3,4], "World": [5,6,7,8]}
 page_sanitized = json.loads(json_util.dumps(collection.find()))

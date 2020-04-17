@@ -39,7 +39,7 @@ d3.json("/jsonified_two").then(function(data) {
       el.value = opt;
       select.appendChild(el);
   };
-  //console.log(data);
+  console.log(data);
 
   var years = [];
   for (i = 0; i < data.length; i++) {
