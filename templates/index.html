@@ -27,7 +27,27 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/stylish.css">
 
   </head>
-  <body>          
+  <body>  
+    <div class = "row">
+      <div class="col-md-12">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">MN Water Data</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="table.html">Contaminant Info</a>
+          </li>
+        </ul>
+      </div>  
+      </nav> 
+    </div>
+    </div>    
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4">Sunday Tiger Woods</h1>
@@ -54,8 +74,12 @@
     </div>
     </div>
     <div class="col-md-6">
-    
     <h4>Water Contaminents by County : 2017</h4>
+    <div id = "chart-container"></div>
+    <div id = "map">
+      
+    </div>
+  </div>
     </div>
 </div>
 </div>
@@ -63,31 +87,42 @@
   <div class = "row">
     <div class = "col-md-6">
     <h4>Heatmap</h4>
+    <div id = "heat_map">
   </div>
+</div>
     <div class = "col-md-6">
-      
       <h4>Change in Minnesota Groundwater Contaminants</h4>
-
-          <select id="countySelected"></select>
-          <select id="yearSelected"></select>
-          <div id = "viz-container"></div>
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="countyInput">County</label>
+          <input type="text" class="form-control" id="countyInput" placeholder="Enter a Minnesota County">
+          <div id="year-container"></div>
+          <select id="yearSelected">
+          </select>
+          <button id="submit" type="submit" class="btn btn-default">Plot Data</button>
+          
         </div>
-        
-        
-        </div>
-        
-       
+        <div id = "viz-container"></div>
     
+  </div>
+</div>
+<div class = "container">
+  <div class = "row">
+    <div class = "col-md-6">
+    <h4>Populations Served</h4>
+    <div id = "pop_map">
   </div>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
       
     <script type="text/javascript" src="../static/js/config.js"></script>
-    <script type="text/javascript" src="../static/js/logic.js"></script>
+    <script type="text/javascript" src="../static/js/bar.js"></script>
     <script type="text/javascript" src="../static/js/line.js"></script>
-    <script type="text/javascript" src="../static/js/sun.js"></script>
-    <script type="text/javascript" src="../../static/js/logic3.js"></script>
-      
+    <script type="text/javascript" src="../static/js/pop_map.js"></script>
+    <script type="text/javascript" src="../static/js/chloropleth_map.js"></script>
+    <script type="text/javascript" src="../static/js/leaflet-heat.js"></script>
+    <script type="text/javascript" src="../static/js/heat.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
@@ -96,6 +131,5 @@
  
   </body>
 </html>
-
 
 
