@@ -31,4 +31,5 @@ var myMap = L.map("heat_map", {
       blur: 3
     }).addTo(myMap);
   
+   myMap.invalidateSize();
   });

@@ -83,7 +83,7 @@ d3.json("/jsonified").then(function(page_sanitized) {
          labels: years,
          datasets: [
              {
-                 label: "Water Contaminent Levels (MN Counties)",
+                 label: "Water Contaminant Levels (MN Counties)",
                  fill: false,
                  lineTension: 0.1,
                  backgroundColor: "rgba(75, 192, 192, 0.4)",
@@ -154,7 +154,7 @@ d3.json("/jsonified").then(function(page_sanitized) {
              labels: years,
              datasets: [
                  {
-                     label: "Water Contaminent Levels (MN Counties)",
+                     label: "Water Contaminant Levels (MN Counties)",
                      fill: false,
                      lineTension: 0.1,
                      backgroundColor: "rgba(75, 192, 192, 0.4)",
