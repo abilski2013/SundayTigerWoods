@@ -19,6 +19,7 @@ collectionBU = db.water_percent
 dictionary = {"Hello": [1,2,3,4], "World": [5,6,7,8]}
 page_sanitized = json.loads(json_util.dumps(collection.find()))
 income_sanitized = json.loads(json_util.dumps(collection2.find()))
+data = json.loads(json_util.dumps(collectionBU.find()))
 @app.route("/")
 # Create a function called query_mongo that will pull all documents from our collection at once
 def query_mongo():
@@ -27,6 +28,11 @@ def query_mongo():
 # Create a function called query_mongo that will pull all documents from our collection at once
 def table():
     return render_template("table.html")
+
+@app.route("/population.html")
+
+def population():
+    return render_template("population.html")
     # Assign the operation that finds all data as a (json?) list as the variable "grab_data"
     #grab_data = list(collection.find())
     #print(grab_data)

@@ -1,6 +1,6 @@
 var map = L.map("pop_map", {
     center: [46.7296, -94.6859],
-    zoom: 7
+    zoom: 6
   });
   
   L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
@@ -10,7 +10,7 @@ var map = L.map("pop_map", {
     accessToken: API_KEY
   }).addTo(map);
  
-   var link = "../static/data/geopop.geojson";
+   var link = "../../static/data/geopop.geojson";
   
   d3.json(link, function(data) {
       console.log(data);

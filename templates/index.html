@@ -17,7 +17,9 @@
 
 
     <!-- d3 JavaScript -->
-    <script src="https://d3js.org/d3.v5.min.js"></script>"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
     <!-- Leaflet-Choropleth JavaScript -->
     <script type="text/javascript" src="../static/js/choropleth.js"></script>
 
@@ -41,7 +43,8 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="table.html">Contaminant Info</a>
+              <a class="nav-link" href="table.html">Contaminant Info</a></li>
+           <li> <a class="nav-link" href="population.html">Population Map</a>
           </li>
         </ul>
       </div>  
@@ -76,52 +79,35 @@
     <div class="col-md-6">
     <h4>Water Contaminents by County : 2017</h4>
     <div id = "chart-container"></div>
-    <div id = "map">
-      
-    </div>
+    <div id = "map"></div>
   </div>
     </div>
-</div>
-</div>
-<div class = "container">
   <div class = "row">
     <div class = "col-md-6">
-    <h4>Heatmap</h4>
+    <h4>Heatmap- 2017 per capita income by county</h4>
+    <div id = "chart-container"></div>
     <div id = "heat_map">
   </div>
 </div>
     <div class = "col-md-6">
       <h4>Change in Minnesota Groundwater Contaminants</h4>
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="countyInput">County</label>
-          <input type="text" class="form-control" id="countyInput" placeholder="Enter a Minnesota County">
-          <div id="year-container"></div>
-          <select id="yearSelected">
-          </select>
-          <button id="submit" type="submit" class="btn btn-default">Plot Data</button>
-          
-        </div>
+        <select id="countySelect"><option>Hennepin</option></select>
+        <select id="yearSelect"><option>2017</option></select>
         <div id = "viz-container"></div>
-    
-  </div>
-</div>
-<div class = "container">
-  <div class = "row">
-    <div class = "col-md-6">
-    <h4>Populations Served</h4>
-    <div id = "pop_map">
-  </div>
+      </div>
+    </div>
+
 </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
       
     <script type="text/javascript" src="../static/js/config.js"></script>
-    <script type="text/javascript" src="../static/js/bar.js"></script>
     <script type="text/javascript" src="../static/js/line.js"></script>
     <script type="text/javascript" src="../static/js/pop_map.js"></script>
     <script type="text/javascript" src="../static/js/chloropleth_map.js"></script>
     <script type="text/javascript" src="../static/js/leaflet-heat.js"></script>
     <script type="text/javascript" src="../static/js/heat.js"></script>
+    <script type="text/javascript" src="../static/js/bar.js"></script>
+      
     
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
